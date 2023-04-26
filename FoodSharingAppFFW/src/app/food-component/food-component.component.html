@@ -1,0 +1,20 @@
+<div class="d-flex flex-column mw-70">
+    <div class="table-responsive m-3">
+    <table class="table table-hover table-bordered">
+        <thead scope="col">
+          <tr>
+            <th>#</th>
+            <th *ngFor="let header of tableHeaders">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of tableData; let i = index" scope="row">
+            <td>{{ i + 1 }}</td>
+            <td *ngFor="let header of tableHeaders" > 
+              <input type="text" [value]="data[header.toLowerCase()] ?? '' " (input)="updateValue($event, header.toLowerCase(), i)" class="form-control">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
