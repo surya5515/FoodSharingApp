@@ -1,10 +1,39 @@
-td{
-    padding: 0;
-    border:0
-}
-
-input:focus {
-    outline: none;
-    box-shadow: none;
+*{
+    font-family:"Roboto",sans-serif;
   }
+  .heading{
+    color:#0A4D68;
+  }
+  .carmodel{
+    display: flex;
+    justify-content: space-between;
+  }
+  .paragraph{
+            padding: 10px;
+            border-radius: 30px;
+            background-color: #0A4D68;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+  }
+  .card-link{
+    color:#0A4D68;
+  }
+  .image{
+    width:100%;
+    border-radius:300px;
+  }
+  span{
+    padding-left: 10px;
+  }
+  .main{
+  border-radius: 15px;
+  min-height: 50vh;
+  background: #D3CCE3;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  }
   

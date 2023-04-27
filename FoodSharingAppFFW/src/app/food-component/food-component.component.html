@@ -1,20 +1,59 @@
-<div class="d-flex flex-column mw-70">
-    <div class="table-responsive m-3">
-    <table class="table table-hover table-bordered">
-        <thead scope="col">
-          <tr>
-            <th>#</th>
-            <th *ngFor="let header of tableHeaders">{{ header }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of tableData; let i = index" scope="row">
-            <td>{{ i + 1 }}</td>
-            <td *ngFor="let header of tableHeaders" > 
-              <input type="text" [value]="data[header.toLowerCase()] ?? '' " (input)="updateValue($event, header.toLowerCase(), i)" class="form-control">
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<h1 class="text-center" style="color:#f8f8f8">Food Share</h1>
+<div class="container-fluid  bg-light m-1 main" style="max-width: 99%;">
+  <div class="container-fluid form-group pt-3" style="max-width: 25%;">
+    <label for="upload">Upload Food Images</label>
+    <input type="file" multiple class="form-control" id="upload" (change)="saveImages($event)" class="pt-1 form-control">
+  </div>
+  <div class="container-fluid">
+    <div class="row" *ngFor="let i of images">
+      <div class="col-sm-3">
+        <p class="paragraph m-0">{{ i[0] }}</p>
+        <small>{{i}}</small>
+      </div>
+      <div class="col-sm-9">
+        <div class="preview-container" *ngIf="uploads.length > 0">
+          <div class="row">
+            <div *ngFor="let url of uploads; let i=index" class="col-sm-3 img-second d-flex flex-row m-3">
+              <img class="img-thumbnail mt-2" [src]="url" alt="" *ngIf="url">
+              <button class="btn border-none" style="max-height: 30px; max-width: 30px;" (click)="deleteimage(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-6">
+            <textarea class="form-control" rows="3" placeholder="Enter a description" (change)="onInputChange($event)"></textarea>
+            <div class="col-12 text-center">
+              <span>Actual Quantity</span>
+              <button class="btn" style="font-size: 1.5em;"(click)="increse()">+</button>
+              <h1 style="display:inline-block;">{{ initialCount }}</h1>
+              <button class="btn" style="font-size: 1.5em;"(click)="decrese()">-</button>
+              <span>Left Over</span>
+              <h1 style='display:inline-block'>{{ count }}</h1>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <textarea class="form-control" rows="3" placeholder="Enter comments" (change)="onInputChange($event)"></textarea>
+          </div>
+          <div class="col-sm-3 align-items-center">
+            <div class="row ">
+              <div class="col-8 ">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Enter text">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" [disabled]="count === 0" (click)="counter()">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
+  </div>
+</div>
+

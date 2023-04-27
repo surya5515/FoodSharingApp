@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
-interface Person {
-  name: string;
-  age: number;
-  email: string;
-  [key: string]: any; // add index signature
-}
+
 
 @Component({
   selector: 'app-my-component',
@@ -14,30 +8,54 @@ interface Person {
 })
 
 export class FoodComponentComponent {
-  constructor(){
-    const storedData = localStorage.getItem('data');
-
-    if (storedData) {
-      this.tableData = JSON.parse(storedData);
-    }
+  increse(){
+  this.initialCount++
   }
+  decrese(){
+  if(this.count!==0)
+  this.initialCount--
+  }
+counter() {
+this.count--
+}
+  uploads:string[]=[];
   autosaveTimeout: any;
-  tableData:Person[] = [
-    { name: 'John', age: 25, email: 'john@example.com' },
-    { name: 'Jane', age: 30, email: 'jane@example.com' },
-    { name: 'Bob', age: 40, email: 'bob@example.com' }
-  ];
-  tableHeaders = ['Name', 'Age', 'Email','test1',"test2"];
+  images:any=["Surya"];
+  value =""
+  count = 10
+  initialCount=this.count;
+  saveImages(e:any){
+    let totalfiles=e.target.files;
+    console.log(totalfiles);
+    if(totalfiles.length>0){
+      for(let i=0;i<totalfiles.length;i++){
+        let file=totalfiles[i];
+        const reader=new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload=(e:any)=>{
+          let ur=e.target.result;
+          this.uploads.push(ur);
+        }
+      }
+      console.log(this.uploads);
+    }
+    e.target.value="";
+  }
 
-  updateValue(value: any, key: string, index: number) {
-    this.tableData[index][key] = (value.target as HTMLInputElement).value!;
-       // Debounce the autosave process
+  deleteimage(data:any){
+    this.uploads.splice(data,1);
+  }
+  onInputChange(e:Event) {
+    // Update the table data with the new value
+    const inputElement = e.target as HTMLInputElement;
+    this.value = inputElement.value;
+    console.log(this.value);
+    // Debounce the autosave process
     clearTimeout(this.autosaveTimeout);
     this.autosaveTimeout = setTimeout(() => this.autosaveData(), 2000);
   }
-  autosaveData() {
-    const value = JSON.stringify(this.tableData)
-    localStorage.setItem("data",value)
+  autosaveData(): void {
+    localStorage.setItem("data",this.value);
   }
 
 }
